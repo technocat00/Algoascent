@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IITK Campus Graph Navigator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>IITK Graph Navigator</h1>
+        <p>Interactive Campus Algorithms</p>
+      </div>
+
+      <!-- Controls Panel -->
+      <div class="panel">
+        <div class="panel-title">Algorithm Setup</div>
+        
+        <label for="algoSelect">Algorithm</label>
+        <select id="algoSelect" style="margin-bottom: 12px;">
+          <option value="dijkstra">Dijkstra (Shortest Path)</option>
+          <option value="kruskal">Kruskal (Min Spanning Tree)</option>
+          <option value="tarjan">Tarjan (Critical Bridges/Points)</option>
+          <option value="bfs">BFS (Reachability/Levels)</option>
+          <option value="dfs">DFS (Connected Components)</option>
+        </select>
+
+        <div id="pathControls">
+          <label for="sourceSelect">Source Location</label>
+          <select id="sourceSelect" style="margin-bottom: 10px;"></select>
+
+          <label for="targetSelect" id="targetLabel">Destination</label>
+          <select id="targetSelect" style="margin-bottom: 12px;"></select>
+        </div>
+
+        <label>Edge Weight Factor</label>
+        <div class="toggle-group" style="margin-bottom: 16px;">
+          <div class="toggle-opt active" data-val="distance">Distance</div>
+          <div class="toggle-opt" data-val="time">Time (Traffic)</div>
+          <div class="toggle-opt" data-val="congestion">Congestion</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-run" id="btnRun">Run Algorithm</button>
+          <button class="btn-sec" id="btnReset">Reset</button>
+        </div>
+        
+        <label style="margin-top: 14px;">Animation Speed: <span id="speedVal">Fast</span></label>
+        <input type="range" id="speedSlider" min="1" max="100" value="70">
+      </div>
+
+      <!-- Results Panel -->
+      <div class="panel" id="resultsPanel" style="display: none;">
+        <div class="panel-title">Execution Results</div>
+        <div class="results-scroll" id="resultsContent">
+          <!-- Dynamic results populated here -->
+        </div>
+      </div>
+
+      <!-- Blocked Edges Panel -->
+      <div class="panel">
+        <div class="panel-title">Road Blocks (Shift+Click Edge)</div>
+        <div class="blocked-list" id="blockedList">
+          <!-- Dynamic blocked edges -->
+          <span style="font-size: 0.7rem; color: var(--text-muted); padding: 4px;">No blocked roads</span>
+        </div>
+        <button class="btn-danger" id="btnClearBlocks" style="margin-top: 10px; display: none; padding: 6px;">Clear Blocks</button>
+      </div>
+
+      <!-- Legend -->
+      <div class="panel" style="margin-top: auto;">
+        <div class="panel-title">Legend</div>
+        <div class="legend-grid" id="legendGrid">
+          <!-- Populated from data.js -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Visualizer -->
+    <main class="main">
+      <div class="canvas-hint" id="canvasHint">
+        Pan: Drag • Zoom: Scroll<br>
+        Block Road: <kbd>Shift</kbd> + Click Edge<br>
+        Set Source/Target: Click Nodes
+      </div>
+      
+      <canvas id="graphCanvas"></canvas>
+
+      <div class="status-bar">
+        <div class="status-ind">
+          <div class="status-dot" id="statusDot"></div>
+          <span id="statusText">Ready</span>
+        </div>
+        <span style="color: var(--border-glass);">|</span>
+        <span id="coordText">x: 0, y: 0</span>
+      </div>
+      
+      <div class="tooltip" id="tooltip">
+        <div class="tooltip-name" id="ttName">Name</div>
+        <div class="tooltip-info" id="ttInfo">Info</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/heap.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/visualization.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
